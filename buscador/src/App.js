@@ -11,7 +11,8 @@ class App extends Component{
     termino: '',
     imagenes:[],
     cantidad: 0,
-    pagina:0
+    pagina:0,
+    ultimaPagina:''
   }
 
   /// funcion que define el nuevo estado y metodo callback mediante promise (espera a la resolucion de ConsultarAPI)
@@ -38,22 +39,24 @@ class App extends Component{
     fetch(url)
       .then(respuesta => respuesta.json())
       .then(resultado => this.setState({
-        imagenes: resultado.hits
+        imagenes: resultado.hits,
+        ultimaPagina: parseInt( resultado.totalHits / cantidad )
       }, () => {
-        console.log(this.state.pagina)
+        console.log(this.state.ultimaPagina)
       }))
     
   }
 
   PaginaSiguiente = () => {
     let pagina = this.state.pagina
+    if (pagina == this.state.ultimaPagina) return;
     pagina++
     this.setState({pagina: pagina}, () => {this.ConsultarAPI()})
   }
 
   PaginaAnterior = () => {
     let pagina = this.state.pagina
-    if (pagina == 2) return;
+    if (pagina == 1) return;
     pagina = pagina--
     this.setState({pagina: pagina}, () => {this.ConsultarAPI()})
   }

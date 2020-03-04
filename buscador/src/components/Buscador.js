@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button'
 
 class Buscador extends React.Component {
     //Definimos cual es el elemento al que vamos a referenciar cuando realicemos el evento Submit del Formulario y levantemos el valor escrito en el mismo.
